@@ -68,11 +68,15 @@
                 font-size: 1rem;
             }
 
+            .text-8 {
+                font-size: 1.2rem;
+            }
+
             h1.text-6 {
                 top: 15%;
             }
 
-            h1.text-7 {
+            h1.text-7, h1.text-8 {
                 top: 25%;
             }
 
@@ -341,6 +345,7 @@
         <h1 class="ml3 text-5">Happy Birthday. =)</h1>
         <h1 class="ml3 text-6">Now close your eyes... make a wish</h1>
         <h1 class="ml3 text-7">Tap on the FIRE.</h1>
+        <h1 class="ml3 text-8">It will become true... very soon...</h1>
         <div class="candle-wrapper">
             <div id="glow" class="glow"></div>
             <div id="candle">
@@ -391,10 +396,6 @@
 
                         $('#glow').remove();
 
-                        $('.text-7').animate({
-                            'opacity': '0'
-                        }, 1000);
-
                         setTimeout(function () {
                             $('.candle-wrapper').animate({
                                 'opacity': '0.3'
@@ -403,12 +404,34 @@
 
                         anime.timeline()
                             .add({
+                                targets: '.text-7',
+                                opacity: 0,
+                                duration: 1000,
+                                easing: 'easeOutExpo',
+                            })
+                            .add({
+                                targets: '.text-8 .letter',
+                                opacity: [0, 1],
+                                easing: 'easeInOutQuad',
+                                duration: 1000,
+                                delay: function (el, i) {
+                                    return 50 * (i + 1)
+                                }
+                            })
+                            .add({
+                                targets: '.text-8',
+                                opacity: 0,
+                                duration: 1000,
+                                easing: 'easeOutExpo',
+                                delay: 1000,
+                            })
+                            .add({
                                 targets: '.text-5 .letter',
                                 opacity: [0, 1],
                                 easing: 'easeInOutQuad',
-                                duration: 3000,
+                                duration: 2000,
                                 delay: function (el, i) {
-                                    return 2000 + (50 * (i + 1))
+                                    return 50 * (i + 1)
                                 }
                             })
                     }
