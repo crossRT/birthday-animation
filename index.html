@@ -64,6 +64,18 @@
                 top: 75%;
             }
 
+            .text-6, .text-7 {
+                font-size: 1rem;
+            }
+
+            h1.text-6 {
+                top: 15%;
+            }
+
+            h1.text-7 {
+                top: 25%;
+            }
+
             .candle-wrapper {
                 position: relative;
                 width: 100px;
@@ -326,7 +338,9 @@
         <h1 class="ml3 text-2">Oops... No presents.</h1>
         <h1 class="ml3 text-3">But a simple candle</h1>
         <h1 class="ml3 text-4">and my blessing…</h1>
-        <h1 class="ml3 text-5">Happy Birthday.</h1>
+        <h1 class="ml3 text-5">Happy Birthday. =)</h1>
+        <h1 class="ml3 text-6">Now close your eyes... make a wish</h1>
+        <h1 class="ml3 text-7">Tap on the FIRE.</h1>
         <div class="candle-wrapper">
             <div id="glow" class="glow"></div>
             <div id="candle">
@@ -347,8 +361,8 @@
         <script>
             let audio = new Audio('./The_Beauty_of_Love.mp3');
             audio.load();
-            audio.addEventListener('canplay', function() {
-                setTimeout(function() {
+            audio.addEventListener('canplay', function () {
+                setTimeout(function () {
                     $('.loading').animate({
                         opacity: 0,
                     }, 300);
@@ -377,15 +391,26 @@
 
                         $('#glow').remove();
 
-                        $('#candle').animate({
-                            'opacity': '.5'
-                        }, 100);
+                        $('.text-7').animate({
+                            'opacity': '0'
+                        }, 1000);
 
                         setTimeout(function () {
-                            $('body').animate({
-                                'opacity': '0'
+                            $('.candle-wrapper').animate({
+                                'opacity': '0.3'
                             }, 3000);
                         }, 1000);
+
+                        anime.timeline()
+                            .add({
+                                targets: '.text-5 .letter',
+                                opacity: [0, 1],
+                                easing: 'easeInOutQuad',
+                                duration: 3000,
+                                delay: function (el, i) {
+                                    return 2000 + (50 * (i + 1))
+                                }
+                            })
                     }
                 });
 
@@ -443,7 +468,7 @@
                         targets: '.text-4 .letter',
                         opacity: [0, 1],
                         easing: 'easeInOutQuad',
-                        duration: 3000,
+                        duration: 2300,
                         delay: function (el, i) {
                             return 50 * (i + 1)
                         }
@@ -456,12 +481,28 @@
                         delay: 1000
                     })
                     .add({
-                        targets: '.text-5 .letter',
+                        targets: '.text-6 .letter',
                         opacity: [0, 1],
                         easing: 'easeInOutQuad',
                         duration: 1500,
                         delay: function (el, i) {
                             return 50 * (i + 1)
+                        }
+                    })
+                    .add({
+                        targets: '.text-6',
+                        opacity: 0,
+                        duration: 1000,
+                        easing: 'easeOutExpo',
+                        delay: 2000
+                    })
+                    .add({
+                        targets: '.text-7 .letter',
+                        opacity: [0, 1],
+                        easing: 'easeInOutQuad',
+                        duration: 1000,
+                        delay: function (el, i) {
+                            return 2000 + (50 * (i + 1))
                         }
                     })
             }
