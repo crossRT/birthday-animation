@@ -303,10 +303,24 @@
                 opacity: 0.6;
             }
 
+            .btn-start {
+                position: absolute;
+                top: 50%;
+                color: white;
+                border: 1px solid white;
+                background: none;
+                padding: 10px;
+                opacity: 0;
+                z-index: 999;
+                outline: 0;
+            }
+
         </style>
     </head>
     <body>
         <h1 class="loading" style="opacity: 0.8">Loading...</h1>
+        <button class="btn-start" onclick="start()">Chop Chop Chop</button>
+
         <h1 class="ml3 text-1">LMM</h1>
         <h1 class="ml3 text-2">No cake, no presents.</h1>
         <h1 class="ml3 text-3">But a simple candle</h1>
@@ -332,17 +346,27 @@
         <!--<embed name="The_Beauty_of_Love" src="./The_Beauty_of_Love.mp3" loop="false" hidden="true" autostart="true">-->
         <script>
             let audio = new Audio('./The_Beauty_of_Love.mp3');
-            audio.play();
-            audio.onloadeddata = function() {
-
+            audio.load();
+            audio.addEventListener('canplay', function() {
+                console.log('fired!');
                 setTimeout(function() {
                     $('.loading').animate({
                         opacity: 0,
-                    }, 1000);
+                    }, 300);
+
+                    $('.btn-start').animate({
+                        opacity: 0.8,
+                    }, 500);
+
                 }, 500);
+            });
+
+            function start() {
+
+                $('.btn-start').remove();
 
                 let flame = $('#flame');
-                let txt = $('h1');
+                let txt = $('h1.ml3');
 
                 flame.on({
                     click: function () {
@@ -367,11 +391,12 @@
                 });
 
                 $('.ml3').each(function () {
-                    // $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
                     $(this).html($(this).text().replace(/./g, "<span class='letter'>$&</span>"));
                 });
 
                 txt.css('opacity', 0.8);
+
+                audio.play();
 
                 anime.timeline()
                     .add({
@@ -440,7 +465,7 @@
                             return 50 * (i + 1)
                         }
                     })
-            };
+            }
         </script>
     </body>
 </html>
