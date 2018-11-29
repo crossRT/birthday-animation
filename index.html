@@ -17,6 +17,7 @@
             html, body {
                 height: 100%;
                 margin: 0;
+                font-family: 'Oleo Script', cursive;
             }
 
             body {
@@ -36,7 +37,6 @@
                 text-align: center;
                 font-size: 1.5rem;
                 font-weight: 100;
-                font-family: 'Oleo Script', cursive;
                 letter-spacing: .1em;
                 color: white;
                 text-shadow: 0 0 20px black;
@@ -305,14 +305,15 @@
 
             .btn-start {
                 position: absolute;
-                top: 50%;
+                top: 45%;
                 color: white;
                 border: 1px solid white;
                 background: none;
-                padding: 10px;
+                padding: 10px 20px;
                 opacity: 0;
                 z-index: 999;
                 outline: 0;
+                font-size: 1.5rem;
             }
 
         </style>
@@ -322,7 +323,7 @@
         <button class="btn-start" onclick="start()">Click to start</button>
 
         <h1 class="ml3 text-1">LMM</h1>
-        <h1 class="ml3 text-2">No cake, no presents.</h1>
+        <h1 class="ml3 text-2">Oops... No presents.</h1>
         <h1 class="ml3 text-3">But a simple candle</h1>
         <h1 class="ml3 text-4">and my blessing…</h1>
         <h1 class="ml3 text-5">Happy Birthday.</h1>
@@ -347,7 +348,6 @@
             let audio = new Audio('./The_Beauty_of_Love.mp3');
             audio.load();
             audio.addEventListener('canplay', function() {
-                console.log('fired!');
                 setTimeout(function() {
                     $('.loading').animate({
                         opacity: 0,
@@ -402,7 +402,7 @@
                         targets: '.text-1 .letter',
                         opacity: [0, 1],
                         easing: 'easeInOutQuad',
-                        duration: 1500,
+                        duration: 1800,
                         delay: function (el, i) {
                             return 1500 + (500 * (i + 1));
                         }
