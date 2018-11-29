@@ -40,7 +40,7 @@
                 letter-spacing: .1em;
                 color: white;
                 text-shadow: 0 0 20px black;
-                opacity: .8;
+                opacity: 0;
             }
 
             h1 .letter {
@@ -306,6 +306,7 @@
         </style>
     </head>
     <body>
+        <h1 class="loading" style="opacity: 0.8">Loading...</h1>
         <h1 class="ml3 text-1">LMM</h1>
         <h1 class="ml3 text-2">No cake, no presents.</h1>
         <h1 class="ml3 text-3">But a simple candle</h1>
@@ -328,9 +329,18 @@
                 </div>
             </div>
         </div>
-        <embed name="The_Beauty_of_Love" src="./The_Beauty_of_Love.mp3" loop="false" hidden="true" autostart="true">
+        <!--<embed name="The_Beauty_of_Love" src="./The_Beauty_of_Love.mp3" loop="false" hidden="true" autostart="true">-->
         <script>
-            $(function () {
+            let audio = new Audio('./The_Beauty_of_Love.mp3');
+            audio.play();
+            audio.onloadeddata = function() {
+
+                setTimeout(function() {
+                    $('.loading').animate({
+                        opacity: 0,
+                    }, 1000);
+                }, 500);
+
                 let flame = $('#flame');
                 let txt = $('h1');
 
@@ -360,6 +370,8 @@
                     // $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
                     $(this).html($(this).text().replace(/./g, "<span class='letter'>$&</span>"));
                 });
+
+                txt.css('opacity', 0.8);
 
                 anime.timeline()
                     .add({
@@ -428,7 +440,7 @@
                             return 50 * (i + 1)
                         }
                     })
-            });
+            };
         </script>
     </body>
 </html>
